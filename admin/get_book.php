@@ -26,7 +26,5 @@ echo htmlentities($result->BookName);
  echo "<script>$('#submit').prop('disabled',true);</script>";
 }
 }
-
-
-
+  
 ?>
