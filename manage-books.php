@@ -144,7 +144,7 @@ if (strlen($_SESSION['alogin']) == 1) {
                                                         <td class="center"><?php echo htmlentities($result->Author); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->ISBNNumber); ?></td>
                                                         <td class="center">
-                                                            <a href="<?php echo 'admin/' . htmlentities($result->filepath); ?>"><?php echo htmlentities($result->filename); ?></a>
+                                                            <a class="btn btn-sm btn-primary" target="_blank" href="<?php echo 'admin/' . htmlentities($result->filepath); ?>">View File</a>
                                                         </td>
                                                     </tr>
                                                 <?php
@@ -167,7 +167,8 @@ if (strlen($_SESSION['alogin']) == 1) {
                                                             <td class="center"><?php echo htmlentities($result->Author); ?></td>
                                                             <td class="center"><?php echo htmlentities($result->ISBNNumber); ?></td>
                                                             <td class="center">
-                                                                <a href="<?php echo 'admin/' . htmlentities($result->filepath); ?>"><?php echo htmlentities($result->filename); ?></a>
+                                                                <a class="btn btn-sm btn-primary" target="_blank" href="<?php echo 'admin/' . htmlentities($result->filepath); ?>">View File</a>
+
                                                             </td>
                                                         </tr>
                                                 <?php $cnt = $cnt + 1;
