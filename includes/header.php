@@ -12,6 +12,9 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="dashboard.php">DASHBOARD </a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="manage-books.php">Books</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                         Account
@@ -20,12 +23,6 @@
                         <a class="dropdown-item" href="my-profile.php">My Profile</a>
                         <a class="dropdown-item" href="change-password.php">Change Password</a>
                     </div>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="add-book.php">Add Book</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="manage-books.php">Manage Books</a>
                 </li>
             </ul>
         <?php } else { ?>
@@ -40,14 +37,13 @@
                     <a class="nav-link" href="index.php">User Login</a>
                 </li>
             </ul>
+        <?php } ?>
 
-            <?php if ($_SESSION['login']) {
-            ?>
-                <form class="form-inline my-2 my-lg-0">
-                    <a href="logout.php" class="btn btn-outline-danger my-2 my-sm-0">LOG OUT</a>
-                </form>
-            <?php } ?>
+        <?php if ($_SESSION['login']) {
+        ?>
+            <form class="form-inline my-2 my-lg-0">
+                <a href="logout.php" class="btn btn-outline-danger my-2 my-sm-0">LOG OUT</a>
+            </form>
+        <?php } ?>
     </div>
 </nav>
-
-<?php } ?>
