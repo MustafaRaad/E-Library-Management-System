@@ -48,13 +48,13 @@ if (strlen($_SESSION['alogin']) == 1) {
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img src="assets/img/1.jpg" alt="" height="500px" />
+                  <img src="admin/assets/img/1.jpg" alt="" height="500px" />
                 </div>
                 <div class="carousel-item">
-                  <img src="assets/img/2.jpg" alt="" height="500px" />
+                  <img src="admin/assets/img/2.jpg" alt="" height="500px" />
                 </div>
                 <div class="carousel-item">
-                  <img src="assets/img/3.jpg" alt="" height="500px" />
+                  <img src="admin/assets/img/3.jpg" alt="" height="500px" />
                 </div>
               </div>
               <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">

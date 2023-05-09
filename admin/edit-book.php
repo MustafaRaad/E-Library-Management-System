@@ -63,7 +63,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             <div class="container">
                 <div class="row pad-botm">
                     <div class="col-md-12">
-                        <h4 class="header-line">Add Book</h4>
+                        <h4 class="header-line">Edit Book</h4>
 
                     </div>
 

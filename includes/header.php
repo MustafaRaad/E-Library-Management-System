@@ -34,10 +34,10 @@
                     <a class="nav-link" href="adminlogin.php">Admin Login</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="signup.php">User Signup</a>
+                    <a class="nav-link" href="index.php">User Login</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="index.php">User Login</a>
+                    <a class="nav-link" href="signup.php">User Signup</a>
                 </li>
             </ul>
         <?php } ?>
