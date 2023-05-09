@@ -37,10 +37,6 @@ body {
   padding-bottom: 30px;
 }
 
-/* =============================================================
-   NAVBAR & MENU STYLES
- ============================================================ */
-
 .right-div {
   float: right;
   padding: 20px;
@@ -59,23 +55,6 @@ body {
 }
 .menu-top-active {
   background-color: #eeeeee;
-}
-.navbar-inverse {
-  background-color: #fff;
-  border-color: rgba(155, 153, 153, 0.23);
-}
-
-.navbar {
-  min-height: 90px;
-  margin-bottom: 0px;
-}
-.navbar-inverse .navbar-collapse,
-.navbar-inverse .navbar-form {
-  border-color: transparent;
-}
-.navbar-toggle {
-  background-color: black;
-  border: 1px solid black;
 }
 
 /* =============================================================

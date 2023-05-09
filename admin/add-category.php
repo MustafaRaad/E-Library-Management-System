@@ -16,7 +16,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         $query->execute();
         $lastInsertId = $dbh->lastInsertId();
         if ($lastInsertId) {
-            $_SESSION['msg'] = "Brand Listed successfully";
+            $_SESSION['msg'] = "Category Listed successfully";
             header('location:manage-categories.php');
         } else {
             $_SESSION['error'] = "Something went wrong. Please try again";
@@ -48,52 +48,47 @@ if (strlen($_SESSION['alogin']) == 0) {
         <!------MENU SECTION START-->
         <?php include('includes/header.php'); ?>
         <!-- MENU SECTION END-->
-        <div class="content-wra
-    <div class=" content-wrapper">
+        <div class="content-wrapper">
             <div class="container">
                 <div class="row pad-botm">
                     <div class="col-md-12">
                         <h4 class="header-line">Add category</h4>
-
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"">
-<div class=" panel panel-info">
-                        <div class="panel-heading">
-                            Category Info
-                        </div>
-                        <div class="panel-body">
-                            <form role="form" method="post">
-                                <div class="form-group">
-                                    <label>Category Name</label>
-                                    <input class="form-control" type="text" name="category" autocomplete="off" required />
-                                </div>
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="status" id="status" value="1" checked="checked">Active
-                                        </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <div class=" panel panel-info">
+                            <div class="panel-body">
+                                <form role="form" method="post">
+                                    <div class="form-group">
+                                        <label>Category Name</label>
+                                        <input class="form-control" type="text" name="category" autocomplete="off" required />
                                     </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="status" id="status" value="0">Inactive
-                                        </label>
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="status" id="status" value="1" checked="checked">Active
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="status" id="status" value="0">Inactive
+                                            </label>
+                                        </div>
+
                                     </div>
+                                    <button type="submit" name="create" class="btn btn-info">Create </button>
 
-                                </div>
-                                <button type="submit" name="create" class="btn btn-info">Create </button>
-
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
-
-        </div>
         </div>
         <!-- CONTENT-WRAPPER SECTION END-->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

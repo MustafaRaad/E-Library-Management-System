@@ -23,15 +23,11 @@ if (strlen($_SESSION['alogin']) == 0) {
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
         <title>Online Library Management System | Manage Books</title>
         <!-- BOOTSTRAP CORE STYLE  -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <!-- FONT AWESOME STYLE  -->
         <link href="assets/css/font-awesome.css" rel="stylesheet" />
-        <!-- DATATABLE STYLE  -->
-        <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
         <!-- CUSTOM STYLE  -->
         <link href="assets/css/style.css" rel="stylesheet" />
         <!-- GOOGLE FONT -->
@@ -110,11 +106,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <th>Category</th>
                                                 <th>Author</th>
                                                 <th>ISBN</th>
+                                                <th>File</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.ISBNNumber,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId";
+                                            <?php $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblbooks.Author,tblbooks.filepath,tblbooks.filename,tblbooks.ISBNNumber,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId";
                                             $query = $dbh->prepare($sql);
                                             $query->execute();
                                             $results = $query->fetchAll(PDO::FETCH_OBJ);
@@ -125,8 +122,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <td class="center"><?php echo htmlentities($cnt); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->BookName); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->CategoryName); ?></td>
-                                                        <td class="center"><?php echo htmlentities($result->AuthorName); ?></td>
+                                                        <td class="center"><?php echo htmlentities($result->Author); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->ISBNNumber); ?></td>
+                                                        <td class="center">
+                                                            <a href="<?php echo htmlentities($result->filepath); ?>"><?php echo htmlentities($result->filename); ?></a>
+                                                        </td>
                                                         <td class="center">
 
                                                             <a href="edit-book.php?bookid=<?php echo htmlentities($result->bookid); ?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
@@ -151,10 +151,8 @@ if (strlen($_SESSION['alogin']) == 0) {
             </div>
         </div>
 
-        <!-- CONTENT-WRAPPER SECTION END-->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     </body>
 
     </html>

@@ -31,7 +31,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         <!-- FONT AWESOME STYLE  -->
         <link href="assets/css/font-awesome.css" rel="stylesheet" />
         <!-- DATATABLE STYLE  -->
-        <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+        
         <!-- CUSTOM STYLE  -->
         <link href="assets/css/style.css" rel="stylesheet" />
         <!-- GOOGLE FONT -->
@@ -51,41 +51,33 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
                     <div class="row">
                         <?php if ($_SESSION['error'] != "") { ?>
-                            <div class="col-md-6">
                                 <div class="alert alert-danger">
                                     <strong>Error :</strong>
                                     <?php echo htmlentities($_SESSION['error']); ?>
                                     <?php echo htmlentities($_SESSION['error'] = ""); ?>
                                 </div>
-                            </div>
                         <?php } ?>
                         <?php if ($_SESSION['msg'] != "") { ?>
-                            <div class="col-md-6">
                                 <div class="alert alert-success">
                                     <strong>Success :</strong>
                                     <?php echo htmlentities($_SESSION['msg']); ?>
                                     <?php echo htmlentities($_SESSION['msg'] = ""); ?>
                                 </div>
-                            </div>
                         <?php } ?>
                         <?php if ($_SESSION['updatemsg'] != "") { ?>
-                            <div class="col-md-6">
                                 <div class="alert alert-success">
                                     <strong>Success :</strong>
                                     <?php echo htmlentities($_SESSION['updatemsg']); ?>
                                     <?php echo htmlentities($_SESSION['updatemsg'] = ""); ?>
-                                </div>
                             </div>
                         <?php } ?>
 
 
                         <?php if ($_SESSION['delmsg'] != "") { ?>
-                            <div class="col-md-6">
                                 <div class="alert alert-success">
                                     <strong>Success :</strong>
                                     <?php echo htmlentities($_SESSION['delmsg']); ?>
                                     <?php echo htmlentities($_SESSION['delmsg'] = ""); ?>
-                                </div>
                             </div>
                         <?php } ?>
 
@@ -125,9 +117,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <td class="center"><?php echo htmlentities($cnt); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->CategoryName); ?></td>
                                                         <td class="center"><?php if ($result->Status == 1) { ?>
-                                                                <a href="#" class="btn btn-success btn-xs">Active</a>
+                                                                <p  class="bg-success text-center">Active</p>
                                                             <?php } else { ?>
-                                                                <a href="#" class="btn btn-danger btn-xs">Inactive</a>
+                                                                <p class="bg-danger text-center">Inactive</p>
                                                             <?php } ?>
                                                         </td>
                                                         <td class="center"><?php echo htmlentities($result->CreationDate); ?></td>

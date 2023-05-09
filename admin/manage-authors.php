@@ -31,7 +31,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         <!-- FONT AWESOME STYLE  -->
         <link href="assets/css/font-awesome.css" rel="stylesheet" />
         <!-- DATATABLE STYLE  -->
-        <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+        
         <!-- CUSTOM STYLE  -->
         <link href="assets/css/style.css" rel="stylesheet" />
         <!-- GOOGLE FONT -->

@@ -6,23 +6,58 @@ if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
 
-    if (isset($_POST['issue'])) {
-        $studentid = strtoupper($_POST['studentid']);
-        $bookid = $_POST['bookdetails'];
-        $sql = "INSERT INTO  tblissuedbookdetails(StudentID,BookId) VALUES(:studentid,:bookid)";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':studentid', $studentid, PDO::PARAM_STR);
-        $query->bindParam(':bookid', $bookid, PDO::PARAM_STR);
-        $query->execute();
-        $lastInsertId = $dbh->lastInsertId();
-        if ($lastInsertId) {
-            $_SESSION['msg'] = "Book issued successfully";
-            header('location:manage-issued-books.php');
+     // File upload handling
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
+        $uploadDir = 'uploaded_books/';  // Directory to store uploaded files
+        $filename = $_FILES['file']['name'];
+        $filepath = $uploadDir . $filename;
+
+        // Move the uploaded file to the desired directory
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $filepath)) {
+            // Insert file information into the database
+            $sql = "INSERT INTO  files(filename,filepath) VALUES(:filename,:filepath)";
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':filename', $filename, PDO::PARAM_STR);
+            $query->bindParam(':filepath', $filepath, PDO::PARAM_STR);
+            $query->execute();
+            $lastInsertId = $dbh->lastInsertId();
+            if ($lastInsertId) {
+                $_SESSION['msg'] = "File uploaded successfully!";
+                header('location:manage-books.php');
+            } else {
+                $_SESSION['error'] = "Failed to upload file.";
+                header('location:manage-books.php');
+            }
         } else {
-            $_SESSION['error'] = "Something went wrong. Please try again";
-            header('location:manage-issued-books.php');
+            echo 'Failed to upload file.';
         }
     }
+
+    // // File download handling
+    // if (isset($_GET['file_id'])) {
+    //     $fileId = $_GET['file_id'];
+
+    //     // Retrieve file information from the database
+    //     $stmt = $pdo->prepare("SELECT filename, filepath FROM files WHERE id = ?");
+    //     $stmt->execute([$fileId]);
+    //     $file = $stmt->fetch();
+
+    //     if ($file) {
+    //         $filename = $file['filename'];
+    //         $filepath = $file['filepath'];
+
+    //         // Output headers to initiate file download
+    //         header("Content-Type: application/octet-stream");
+    //         header("Content-Disposition: attachment; filename=\"$filename\"");
+
+    //         // Read the file and output its contents
+    //         readfile($filepath);
+    //         exit;
+    //     } else {
+    //         echo 'File not found.';
+    //     }
+    // }
+
 ?>
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -85,59 +120,55 @@ if (strlen($_SESSION['alogin']) == 0) {
         <!------MENU SECTION START-->
         <?php include('includes/header.php'); ?>
         <!-- MENU SECTION END-->
-        <div class="content-wra
-    <div class=" content-wrapper">
+        <div class="content-wrapper">
             <div class="container">
                 <div class="row pad-botm">
                     <div class="col-md-12">
                         <h4 class="header-line">Issue a New Book</h4>
-
                     </div>
 
                 </div>
-                <div class="row">
-                    <div class="col-md-10 col-sm-6 col-xs-12 col-md-offset-1"">
-<div class=" panel panel-info">
-                        <div class="panel-heading">
-                            Issue a New Book
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="panel-heading">
+                                            Add Book File
+                                        </div>
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="panel-body">
+                                        <form method="POST" enctype="multipart/form-data">
+                                            <input type="file" name="file" required>
+                                            <button type="submit" class="btn btn-primary">Upload</button>
+                                        </form>
+
+                                        <!-- <h2>Uploaded Files</h2>
+                                    <ul>
+                                        <?php
+                                        // Display a list of uploaded files with download links
+                                        $stmt = $pdo->query("SELECT id, filename FROM files");
+                                        while ($row = $stmt->fetch()) {
+                                            $fileId = $row['id'];
+                                            $filename = $row['filename'];
+                                            echo "<li><a href=\"?file_id=$fileId\">$filename</a></li>";
+                                        }
+                                        ?>
+                                    </ul> -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <form role="form" method="post">
 
-                                <div class="form-group">
-                                    <label>Srtudent id<span style="color:red;">*</span></label>
-                                    <input class="form-control" type="text" name="studentid" id="studentid" onBlur="getstudent()" autocomplete="off" required />
-                                </div>
-
-                                <div class="form-group">
-                                    <span id="get_student_name" style="font-size:16px;"></span>
-                                </div>
-
-
-
-
-
-                                <div class="form-group">
-                                    <label>ISBN Number or Book Title<span style="color:red;">*</span></label>
-                                    <input class="form-control" type="text" name="booikid" id="bookid" onBlur="getbook()" required="required" />
-                                </div>
-
-                                <div class="form-group">
-
-                                    <select class="form-control" name="bookdetails" id="get_book_name" readonly>
-
-                                    </select>
-                                </div>
-                                <button type="submit" name="issue" id="submit" class="btn btn-info">Issue Book </button>
-
-                            </form>
-                        </div>
                     </div>
-                </div>
+
 
             </div>
-
-        </div>
         </div>
         <!-- CONTENT-WRAPPER SECTION END-->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

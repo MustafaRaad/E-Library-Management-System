@@ -1,27 +1,38 @@
 <?php
 session_start();
-error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
 
-    if (isset($_POST['update'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $bookname = $_POST['bookname'];
         $category = $_POST['category'];
         $author = $_POST['author'];
         $isbn = $_POST['isbn'];
+        $uploadDir = 'uploaded_books/';  // Directory to store uploaded files
+        $filename = $_FILES['file']['name'];
+        $filepath = $uploadDir . $filename;
+
         $bookid = intval($_GET['bookid']);
-        $sql = "update  tblbooks set BookName=:bookname,CatId=:category,AuthorId=:author,ISBNNumber=:isbn where id=:bookid";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':bookname', $bookname, PDO::PARAM_STR);
-        $query->bindParam(':category', $category, PDO::PARAM_STR);
-        $query->bindParam(':author', $author, PDO::PARAM_STR);
-        $query->bindParam(':isbn', $isbn, PDO::PARAM_STR);
-        $query->bindParam(':bookid', $bookid, PDO::PARAM_STR);
-        $query->execute();
-        $_SESSION['msg'] = "Book info updated successfully";
-        header('location:manage-books.php');
+        // if (move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)) {
+            $sql = "update  tblbooks set BookName=:bookname,CatId=:category,Author=:author,ISBNNumber=:isbn,filename=:filename,filepath=:filepath where id=:bookid";
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':bookname', $bookname, PDO::PARAM_STR);
+            $query->bindParam(':filename', $filename, PDO::PARAM_STR);
+            $query->bindParam(':filepath', $filepath, PDO::PARAM_STR);
+            $query->bindParam(':category', $category, PDO::PARAM_STR);
+            $query->bindParam(':author', $author, PDO::PARAM_STR);
+            $query->bindParam(':isbn', $isbn, PDO::PARAM_STR);
+            $query->bindParam(':bookid', $bookid, PDO::PARAM_STR);
+            $query->execute();
+            $_SESSION['msg'] = "Book info updated successfully";
+            header('location:manage-books.php');
+        // } else {
+        //     $_SESSION['error'] = "Error uploading the file.";
+        //     header('location: manage-books.php');
+        //     exit;
+        // }
     }
 ?>
     <!DOCTYPE html>
@@ -48,8 +59,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         <!------MENU SECTION START-->
         <?php include('includes/header.php'); ?>
         <!-- MENU SECTION END-->
-        <div class="content-wra
-    <div class=" content-wrapper">
+        <div class="content-wrapper">
             <div class="container">
                 <div class="row pad-botm">
                     <div class="col-md-12">
@@ -68,7 +78,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                             <form role="form" method="post">
                                 <?php
                                 $bookid = intval($_GET['bookid']);
-                                $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblcategory.id as cid,tblauthors.AuthorName,tblauthors.id as athrid,tblbooks.ISBNNumber,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId where tblbooks.id=:bookid";
+                                $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblcategory.id as cid,tblbooks.Author,tblbooks.filename,tblbooks.filepath,tblbooks.ISBNNumber,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId where tblbooks.id=:bookid";
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':bookid', $bookid, PDO::PARAM_STR);
                                 $query->execute();
@@ -109,26 +119,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                         <div class="form-group">
                                             <label> Author<span style="color:red;">*</span></label>
-                                            <select class="form-control" name="author" required="required">
-                                                <option value="<?php echo htmlentities($result->athrid); ?>"> <?php echo htmlentities($athrname = $result->AuthorName); ?></option>
-                                                <?php
-
-                                                $sql2 = "SELECT * from  tblauthors ";
-                                                $query2 = $dbh->prepare($sql2);
-                                                $query2->execute();
-                                                $result2 = $query2->fetchAll(PDO::FETCH_OBJ);
-                                                if ($query2->rowCount() > 0) {
-                                                    foreach ($result2 as $ret) {
-                                                        if ($athrname == $ret->AuthorName) {
-                                                            continue;
-                                                        } else {
-
-                                                ?>
-                                                            <option value="<?php echo htmlentities($ret->id); ?>"><?php echo htmlentities($ret->AuthorName); ?></option>
-                                                <?php }
-                                                    }
-                                                } ?>
-                                            </select>
+                                            <input class="form-control" type="text" name="author" value="<?php echo htmlentities($result->Author); ?>" required="required" />
                                         </div>
 
                                         <div class="form-group">
@@ -136,6 +127,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <input class="form-control" type="text" name="isbn" value="<?php echo htmlentities($result->ISBNNumber); ?>" required="required" />
                                             <p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
                                         </div>
+                                        <!-- <div class="form-group">
+                                            <label>Book File<span style="color:red;">*</span></label>
+                                            <input class="form-control" type="file" name="file" value="<?php echo htmlentities($result->filepath); ?>" required="required" />
+                                        </div> -->
 
                                 <?php }
                                 } ?>

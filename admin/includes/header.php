@@ -11,41 +11,17 @@
             <li class="nav-item ">
                 <a class="nav-link" href="dashboard.php">DASHBOARD </a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Categories
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="add-category.php">Add Category</a>
-                    <a class="dropdown-item" href="manage-categories.php">Manage Categories</a>
-                </div>
+            <li class="nav-item ">
+                <a class="nav-link" href="add-book.php">Add Book</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Authors
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="add-author.php">Add Author</a>
-                    <a class="dropdown-item" href="manage-authors.php">Manage Authors</a>
-                </div>
+            <li class="nav-item ">
+                <a class="nav-link" href="manage-books.php">Manage Books</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Books
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="add-book.php">Add Book</a>
-                    <a class="dropdown-item" href="manage-books.php">Manage Books</a>
-                </div>
+            <li class="nav-item ">
+                <a class="nav-link" href="add-category.php">Add Category</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Issue Books
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="issue-book.php">Issue New Book</a>
-                    <a class="dropdown-item" href="manage-issued-books.php">Manage Issued Books</a>
-                </div>
+            <li class="nav-item ">
+                <a class="nav-link" href="manage-categories.php">Manage Categories</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="reg-students.php">Reg Students </a>
